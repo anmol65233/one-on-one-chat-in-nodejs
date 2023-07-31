@@ -1,0 +1,25 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        
+    </body>
+    <script src="socket.io.min.js" ></script>
+    <script>
+        const socket = io("https://localhost:3005/",{ 
+            autoConnect: false, 
+            cors: {
+                origin: "*",},
+            }
+        );
+        socket.connect();
+        socket.emit("user-joined",{
+            username: "507f1f77bcf86cd799439011",
+        });
+        socket.on("chat",function(data){
+            alert("chat done");
+            console.log(data);
+        })
+    </script>
+</html>

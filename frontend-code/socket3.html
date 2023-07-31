@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <button id="count">send message</button>
+    </body>
+    <script src="socket.io.min.js" ></script>
+    <script>
+        var count = 1;
+        const socket = io("https://localhost:3005/",{ 
+            autoConnect: false, 
+            cors: {
+                origin: "*",},
+            }
+        );
+        socket.connect();
+        socket.emit("user-joined",{
+            username: "507f1f77bcf86cd799439012",
+        });
+        socket.emit("chat",{
+            from:"507f1f77bcf86cd799439012",
+            to:"507f1f77bcf86cd799439011",
+            msg: "this is test message"
+        })
+        socket.on("chat",function(data){
+            console.log(data);
+        })
+        jQuery('#count').on('click',function(){
+            count++;
+            socket.emit("chat",{
+                from:"507f1f77bcf86cd799439012",
+                to:"507f1f77bcf86cd799439011",
+                msg: "this is no"+count
+            });
+        })
+    </script>
+</html>
